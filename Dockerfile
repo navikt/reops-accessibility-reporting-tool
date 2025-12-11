@@ -1,4 +1,4 @@
-FROM openjdk:17-alpine as builder
+FROM openjdk:21-alpine as builder
 COPY . .
 RUN ./gradlew build -i -x test
 
