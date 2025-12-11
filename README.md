@@ -14,6 +14,13 @@ App for rapportering av tilgjengelighet fra team på NAV sine sider. For api doc
 mvn clean install
 ```
 
+### Could not find a valid Docker environment når du prøver å kjøre tester på mac (med colima)
+1. `sudo ln -s $HOME/.docker/run/docker.sock /var/run/docker.sock
+2. `colima stop`
+3. `colima start --network-address`
+4. Sett `ADMIN_GROUP=test_admin` i miljøet når du kjører lokale tester slik at admin-endepunktene fungerer i testene.
+5. Logg alle innkommende HTTP-kall ved å sette `CALL_LOGGING_LEVEL=DEBUG` hvis du trenger ekstra feilsøking.
+
 Default verdi på dev-logging er DEBUG, kan endres i [logback-dev.xml](app/src/main/resources/logback-dev.xml)
 
 ### Kjøre appen lokalt
@@ -57,11 +64,3 @@ Du kan oppdatere manuelt eller bruke en plugin (f.eks openapi generator for ktor
 ### Unresolved Network Adress når du prøver å starte appen (mac)
 1. Åpne /etc/host `open /etc/hosts`
 2. Legg inn på ny linje: `127.0.0.1 host.docker.internal`
-
-### Could not find a valid Docker environment når du prøver å kjøre tester på mac (med colima)
-
-1. `sudo ln -s $HOME/.docker/run/docker.sock /var/run/docker.sock
-2. `colima stop`
-3. `colima start --network-address`
-4. Sett `ADMIN_GROUP=test_admin` i miljøet når du kjører lokale tester slik at admin-endepunktene fungerer i testene.
-5. Logg alle innkommende HTTP-kall ved å sette `CALL_LOGGING_LEVEL=DEBUG` hvis du trenger ekstra feilsøking.
