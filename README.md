@@ -4,20 +4,10 @@ App for rapportering av tilgjengelighet fra team på NAV sine sider. For api doc
 
 ## Utvikling
 ### Forutsetninger
-```
-AZURE_APP_CLIENT_ID=a11y;AZURE_APP_WELL_KNOWN_URL=http://host.docker.internal:8080/issueissue/.well-known/openid-configuration;DB_DATABASE=a11y;DB_HOST=localhost;DB_PASSWORD=a11y;DB_PORT=5432;DB_USERNAME=postgres;CORS_ALLOWED_ORIGIN:*;ADMIN_GROUP=test_admin
-```
-* Appen kan nås på `http://localhost:3000`
-
-Appen er satt opp med defaultverdier for mocked jwt som kan endres i definisjonen av mock-oauth2-server
-i [docker-compose](docker-compose.yml)
-
-```
-"aud": ["a11y"],
-"email" : "carl@good.morning",
-"name": "Carl Good Morning",
-"oid": "tadda-i-fixed-it"
-```
+- mvn er installert 3.9.0+ eller 4.0++
+- docker er installert og kjører
+- docker-compose er installert
+- Java 21 er installert
 
 Default verdi på dev-logging er DEBUG, kan endres i [logback-dev.xml](app/src/main/resources/logback-dev.xml)
 
@@ -53,6 +43,7 @@ Default verdi på dev-logging er DEBUG, kan endres i [logback-dev.xml](app/src/m
       curl http://localhost:8787/api/teams \
         -H "Authorization: Bearer <ditt-token>'    
     ```
+
 ### Oppdatere apidocs
 Apiet er beskrevet i filen [documentation.yaml](app/src/main/resources/static/openapi/documentation.yaml)
 Du kan oppdatere manuelt eller bruke en plugin (f.eks openapi generator for ktor i intellij)
