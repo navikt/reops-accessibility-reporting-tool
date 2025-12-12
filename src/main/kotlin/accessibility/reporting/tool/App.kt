@@ -17,7 +17,6 @@ import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.engine.*
 import io.ktor.server.http.content.*
-import io.ktor.server.metrics.micrometer.*
 import io.ktor.server.netty.*
 import io.ktor.server.plugins.*
 import io.ktor.server.plugins.callloging.*
@@ -38,7 +37,7 @@ import java.lang.IllegalArgumentException
 fun main() {
     val environment = Environment()
     val authContext = AzureAuthContext()
-    Flyway.runFlywayMigrations(Environment())
+    Flyway.runFlywayMigrations(environment)
     val repository = ReportRepository(PostgresDatabase(environment))
     val organizationRepository = OrganizationRepository(PostgresDatabase(environment))
     embeddedServer(
@@ -163,17 +162,26 @@ fun allRoutes(root: Route): List<Route> {
 }
 
 class Environment(
+    environment: String = System.getenv("ENVIRONMENT") ?: "local",
     dbHost: String = System.getenv("DB_HOST"),
     dbPort: String = System.getenv("DB_PORT"),
     dbName: String = System.getenv("DB_DATABASE"),
     val dbUser: String = System.getenv("DB_USERNAME"),
     val dbPassword: String = System.getenv("DB_PASSWORD"),
     val corsAllowedOrigin: List<String> = System.getenv("CORS_ALLOWED_ORIGIN").split(",")
-
 ) {
-    val dbUrl: String = if (dbHost.endsWith(":$dbPort")) {
-        "jdbc:postgresql://${dbHost}/$dbName"
+    val dbUrl: String = if (environment == "local") {
+        if (dbHost.endsWith(":$dbPort")) {
+            "jdbc:postgresql://${dbHost}/$dbName"
+        } else {
+            "jdbc:postgresql://${dbHost}:${dbPort}/${dbName}"
+        }
     } else {
-        "jdbc:postgresql://${dbHost}:${dbPort}/${dbName}"
+        val sslRootCert = System.getenv("SSLROOTCERT")
+        val sslCert = System.getenv("SSLCERT")
+        val sslKey = System.getenv("SSLKEY")
+        val sslMode = System.getenv("SSLMODE")
+        "jdbc:postgresql://${dbUser}:${dbPassword}@${dbHost}:${dbPort}/${dbName}" +
+                "?sslmode=$sslMode&sslrootcert=$sslRootCert&sslcert=$sslCert&sslkey=$sslKey"
     }
 }

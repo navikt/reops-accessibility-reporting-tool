@@ -40,6 +40,7 @@ Default verdi på dev-logging er DEBUG, kan endres i [logback-dev.xml](app/src/m
    - DB_PASSWORD
    - CORS_ALLOWED_ORIGIN
    - PORT (default 8081)
+   - ENV
 3. se appen på `http://localhost:8787`
 4. optional, generer token for å kalle api-et:
     ```
@@ -57,7 +58,7 @@ Default verdi på dev-logging er DEBUG, kan endres i [logback-dev.xml](app/src/m
     ```
 #### Example miljøvariabler for lokal kjøring
 ```
-ADMINS=carl@good.morning;AZURE_APP_CLIENT_ID=a11y;AZURE_APP_WELL_KNOWN_URL=http://host.docker.internal:8080/issueissue/.well-known/openid-configuration;CALL_LOGGING_LEVEL=DEBUG;CORS_ALLOWED_ORIGIN=*;DB_DATABASE=a11y;DB_HOST=localhost;DB_PASSWORD=a11y;DB_PORT=5432;DB_USERNAME=postgres;PORT=8787
+ADMINS=carl@good.morning;AZURE_APP_CLIENT_ID=a11y;AZURE_APP_WELL_KNOWN_URL=http://host.docker.internal:8080/issueissue/.well-known/openid-configuration;CALL_LOGGING_LEVEL=DEBUG;CORS_ALLOWED_ORIGIN=*;DB_DATABASE=a11y;DB_HOST=localhost;DB_PASSWORD=a11y;DB_PORT=5432;DB_USERNAME=postgres;PORT=8787;ENV=local
 ```
 
 ### Oppdatere apidocs
