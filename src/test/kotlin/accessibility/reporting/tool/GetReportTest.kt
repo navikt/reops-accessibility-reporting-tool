@@ -144,6 +144,13 @@ private infix fun LocalDateTime.shouldWithinTheSameMinuteAs(date: LocalDateTime)
     dateformat.datestr(this) shouldBe dateformat.datestr(date)
 }
 
-private fun JsonNode.toLocalDateTime() =
-    LocalDateTime.parse(asText(), DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"))
-
+private fun JsonNode.toLocalDateTime(): LocalDateTime {
+    val asText = asText()
+    if (asText.isNotBlank()) {
+        return LocalDateTime.parse(asText, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"))
+    }
+    // fallback for array-represented timestamps or blank fields
+    return accessibility.reporting.tool.database.LocalDateTimeHelper.run {
+        this@toLocalDateTime.toLocalDateTime()
+    }
+}
