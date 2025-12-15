@@ -17,7 +17,7 @@ import io.ktor.server.engine.*
 import io.ktor.server.http.content.*
 import io.ktor.server.netty.*
 import io.ktor.server.plugins.*
-import io.ktor.server.plugins.callloging.*
+import io.ktor.server.plugins.calllogging.*
 import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.plugins.cors.routing.*
 import io.ktor.server.plugins.statuspages.*
@@ -30,7 +30,6 @@ import mu.KotlinLogging
 import org.slf4j.LoggerFactory
 import org.slf4j.event.Level
 import java.lang.IllegalArgumentException
-import io.ktor.server.routing.HttpMethodRouteSelector
 
 
 fun main() {
@@ -130,7 +129,7 @@ fun Application.api(
             }
         }
     }
-    routing {
+    val installedRouting = routing {
         authenticate {
             route("api") {
                 jsonApiReports(organizationRepository = organizationRepository, reportRepository = reportRepository)
@@ -146,15 +145,9 @@ fun Application.api(
         }
     }
 
-    allRoutes(plugin(Routing))
-        .filter { route: Route -> route.selector is HttpMethodRouteSelector }
-        .forEach { route: Route -> println("route: $route") }
+    installedRouting.toString() // retain reference to avoid unused warnings if logging reintroduced later
 }
 
-
-fun allRoutes(root: Route): List<Route> {
-    return listOf(root) + root.children.flatMap { allRoutes(it) }
-}
 
 class Environment(
     val environment: String = System.getenv("ENVIRONMENT") ?: "local",
