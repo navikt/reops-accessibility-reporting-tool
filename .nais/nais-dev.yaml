@@ -29,7 +29,7 @@ spec:
   accessPolicy:
     inbound:
       rules:
-        - application: "reops-accessibility-reporting-tool-frontend"
+        - application: "reops-a11y-statement-frontend"
   azure:
     application:
       enabled: true
