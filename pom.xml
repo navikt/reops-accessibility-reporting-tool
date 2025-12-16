@@ -3,10 +3,10 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>no.nav.reops</groupId>
-	<artifactId>reops-accessibility-reporting-tool</artifactId>
+	<artifactId>uurapport-backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>reops-accessibility-reporting-tool</name>
-	<description>Teams</description>
+	<name>uurapport-backend</name>
+	<description>team-researchops</description>
 
 	<properties>
 		<java.version>21</java.version>

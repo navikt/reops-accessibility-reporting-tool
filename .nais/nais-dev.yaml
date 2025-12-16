@@ -1,7 +1,7 @@
 apiVersion: nais.io/v1alpha1
 kind: Application
 metadata:
-  name: reops-a11y-statement
+  name: uurapport-backend
   namespace: team-researchops
   labels:
     team: team-researchops
@@ -19,8 +19,8 @@ spec:
     max: 2
     cpuThresholdPercentage: 80
   ingresses:
-    - "https://reops-a11y-statement.ekstern.dev.nav.no"
-#    - "https://reops-a11y-statement.ansatt.dev.nav.no"
+    - "https://uurapport.ekstern.dev.nav.no"
+#    - "https://uurapport.ansatt.dev.nav.no"
   prometheus:
     enabled: true
     path: /open/metrics
@@ -29,7 +29,7 @@ spec:
   accessPolicy:
     inbound:
       rules:
-        - application: "reops-a11y-statement-frontend"
+        - application: "uurapport-frontend"
   azure:
     application:
       enabled: true
@@ -54,7 +54,7 @@ spec:
         diskAutoresize: true
         autoBackupHour: 3
         databases:
-          - name: reops-a11y-statement
+          - name: uurapport
         maintenance:
           day: 1
           hour: 4
