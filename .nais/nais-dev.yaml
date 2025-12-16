@@ -76,4 +76,4 @@ spec:
     - name: CORS_ALLOWED_ORIGIN
       value: "*.ansatt.dev.nav.no,*.ekstern.dev.nav.no"
     - name: DATABASE_URL
-      value: "$(NAIS_DATABASE_REOPS_A11Y_STATEMENT_REOPS_A11Y_STATEMENT_JDBC_URL)"
+      value: "$(NAIS_DATABASE_UURAPPORT_BACKEND_UURAPPORT_JDBC_URL)"
