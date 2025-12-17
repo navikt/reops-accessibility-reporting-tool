@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
   build:
@@ -62,6 +63,7 @@ jobs:
           VAR: image=${{ needs.build.outputs.image }},version=${{ github.sha }}
 
   deploy-prod:
+    if: github.event_name == 'workflow_dispatch'
     environment: prod
     needs:
       - build
